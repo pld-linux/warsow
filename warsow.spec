@@ -2,6 +2,7 @@
 #	- bconds
 #	- BRs
 #	- polish description
+#	- install binaries depending on architecture to better place (now they are stored in /usr/bin)
 #
 Summary:	A Fast Paced FPS Game
 Name:		warsow

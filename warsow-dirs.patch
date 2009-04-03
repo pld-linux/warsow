@@ -1,0 +1,17 @@
+--- warsow-0.42/warsow_0.42_src/source/unix/start_script.sh~	2008-01-19 15:03:52.000000000 +0100
++++ warsow-0.42/warsow_0.42_src/source/unix/start_script.sh	2009-04-03 12:56:53.000000000 +0200
+@@ -5,12 +5,12 @@
+ # Location of Warsow binaries?
+ # Leave empty to use the directory of this script
+ 
+-BINARY_DIR=
++BINARY_DIR=/usr/bin
+ 
+ # Location of Warsow binaries?
+ # Leave empty to use the directory of the binaries
+ 
+-DATA_DIR=
++DATA_DIR=/usr/share/warsow
+ 
+ # Whether to use ~/.warsow directory? (0 or 1)
+ # Leave empty to set to 1 if DATA_DIR doesn't have write permissions

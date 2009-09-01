@@ -6,19 +6,19 @@
 #
 Summary:	A Fast Paced FPS Game
 Name:		warsow
-Version:	0.42
+Version:	0.5
 Release:	0.1
 License:	GPL
 Group:		X11/Applications/Games
 Source0:	http://data.rodix.free.fr/warsow/files/%{name}_%{version}_sdk.zip
-# Source0-md5:	94c9bb2a48ac6f2687b38809e003f3b9
+# Source0-md5:	acd0244435cc63967b0eb3468c21c454
 Source1:	http://data.rodix.free.fr/warsow/files/%{name}_%{version}_unified.zip
-# Source1-md5:	cba5fe9b8af01b378e685959098fa84f
+# Source1-md5:	d0cb961256bbc1b93bf240b8bcf8eff5
 Patch0:		%{name}-flags.patch
 Patch1:		%{name}-dirs.patch
 URL:		http://www.warsow.net/
-BuildRequires:	dos2unix
 BuildRequires:	unzip
+BuildRequires:	xorg-lib-libXxf86dga-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -39,7 +39,7 @@ Radio or Speedball.
 %patch1 -p1
 
 %build
-%{__make} -C %{name}_%{version}_src/source/ \
+%{__make} -C source/ \
 	CC="%{__cc}" \
 	LD="%{__cc}" \
 	CFLAGS="%{rpmcflags}" \
@@ -49,12 +49,9 @@ Radio or Speedball.
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_datadir}/%{name}}
 
-cd %{name}_%{version}_src
-dos2unix source/release/warsow
-
 install source/release/warsow* $RPM_BUILD_ROOT%{_bindir}
 cp -r source/release/libs $RPM_BUILD_ROOT%{_datadir}/%{name}
-cp -r ../%{name}_%{version}_unified/basewsw $RPM_BUILD_ROOT%{_datadir}/%{name}
+cp -r basewsw $RPM_BUILD_ROOT%{_datadir}/%{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT

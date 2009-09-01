@@ -41,8 +41,10 @@ Radio or Speedball.
 %build
 %{__make} -C source/ \
 	CC="%{__cc}" \
+	CXX="%{__cc}" \
 	LD="%{__cc}" \
 	CFLAGS="%{rpmcflags}" \
+	CXXFLAGS="%{rpmcflags} -fPIC" \
 	LDFLAGS="%{rpmldflags}"
 
 %install

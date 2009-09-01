@@ -1,6 +1,6 @@
 # TODO:	- use our libs instead of static ones
 #	- bconds
-#	- BRs
+#	- some BRs missing
 #	- polish description
 #	- install binaries depending on architecture to better place (now they are stored in /usr/bin)
 #
@@ -17,8 +17,13 @@ Source1:	http://data.rodix.free.fr/warsow/files/%{name}_%{version}_unified.zip
 Patch0:		%{name}-flags.patch
 Patch1:		%{name}-dirs.patch
 URL:		http://www.warsow.net/
+BuildRequires:	curl-devel
+BuildRequires:	libjpeg-devel
 BuildRequires:	unzip
+BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXxf86dga-devel
+BuildRequires:	xorg-lib-libXxf86vm-devel
+BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description

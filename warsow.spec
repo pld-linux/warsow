@@ -1,8 +1,12 @@
-# TODO:	- use our libs instead of static ones
-#	- bconds
-#	- some BRs missing
+# TODO:	- doesn't build without server and without client
 #	- polish description
 #	- install binaries depending on architecture to better place (now they are stored in /usr/bin)
+#
+# Conditional build:
+%bcond_without	client		# build without client
+%bcond_without	openal		# build without openal support
+%bcond_without	qf		# build without qf support
+%bcond_without	server		# build without server
 #
 Summary:	A Fast Paced FPS Game
 Name:		warsow
@@ -17,8 +21,11 @@ Source1:	http://data.rodix.free.fr/warsow/files/%{name}_%{version}_unified.zip
 Patch0:		%{name}-flags.patch
 Patch1:		%{name}-dirs.patch
 URL:		http://www.warsow.net/
+%{?with_openal:BuildRequires:	OpenAL-devel}
+%{?with_qf:BuildRequires:	SDL-devel}
 BuildRequires:	curl-devel
 BuildRequires:	libjpeg-devel
+%{?with_qf:BuildRequires:	libvorbis-devel}
 BuildRequires:	unzip
 BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXxf86dga-devel
@@ -50,7 +57,11 @@ Radio or Speedball.
 	LD="%{__cc}" \
 	CFLAGS="%{rpmcflags}" \
 	CXXFLAGS="%{rpmcflags} -fPIC" \
-	LDFLAGS="%{rpmldflags}"
+	LDFLAGS="%{rpmldflags}" \
+	%{!?with_client:BUILD_CLIENT=NO} \
+	%{!?with_openal:BUILD_SND_OPENAL=NO} \
+	%{!?with_qf:BUILD_SND_QF=NO} \
+	%{!?with_server:BUILD_SERVER=NO}
 
 %install
 rm -rf $RPM_BUILD_ROOT

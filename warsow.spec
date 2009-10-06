@@ -1,5 +1,4 @@
 # TODO:	- doesn't build without server and without client
-#	- polish description
 #	- install binaries depending on architecture to better place (now they are stored in /usr/bin)
 #
 # Conditional build:
@@ -9,10 +8,11 @@
 %bcond_without	server		# build without server
 #
 Summary:	A Fast Paced FPS Game
+Summary(pl.UTF-8):	Szybko tocząca się gra FPS
 Name:		warsow
 Version:	0.5
 Release:	0.1
-License:	GPL
+License:	GPL v2+
 Group:		X11/Applications/Games
 Source0:	http://data.rodix.free.fr/warsow/files/%{name}_%{version}_sdk.zip
 # Source0-md5:	acd0244435cc63967b0eb3468c21c454
@@ -27,6 +27,8 @@ BuildRequires:	curl-devel
 BuildRequires:	libjpeg-devel
 %{?with_qf:BuildRequires:	libvorbis-devel}
 BuildRequires:	unzip
+BuildRequires:	xorg-lib-libX11-devel
+BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXxf86dga-devel
 BuildRequires:	xorg-lib-libXxf86vm-devel
@@ -45,8 +47,22 @@ textures, matching the action full of fun and speed. The game got some
 of its inspiration from titles like Quakeworld, Quake3 CPMA, Jet Set
 Radio or Speedball.
 
+%description -l pl.UTF-8
+Warsow to samodzielna strzelanina FPS dla Windows i Linuksa. Została
+wydana na licencji GPL i jest oparta na silniku 3D Qfusion
+(modyfikacji silnika z Quake 2). Oferuje sportowo zorientowany FPS,
+szybko toczącą się grę skupioną na triksach (trick jumps) oraz sztukę
+poruszania. Zawiera kompletny system broni z trybem słabego i silnego
+ognia. Grafika jest utrzymana w stylu rysunkowym, ale nie Mangi,
+łączącym ciemne, błyskające i brudne tekstury, pasujące do akcji
+pełnej zabawy i szybkości. Gra została częściowo zainspirowana
+tytułami takimi jak Quakeworld, Quake3 CPMA, Jet Set Radio czy
+Speedball.
+
 %prep
-%setup -q -c %{name}-%{version} -a 1
+%setup -q -c
+# conflicting license file
+%{__unzip} -qq -n %{SOURCE1}
 %patch0 -p1
 %patch1 -p1
 

@@ -11,15 +11,17 @@ Summary:	A Fast Paced FPS Game
 Summary(pl.UTF-8):	Szybko tocząca się gra FPS
 Name:		warsow
 Version:	0.5
-Release:	0.1
+Release:	0.2
 License:	GPL v2+
 Group:		X11/Applications/Games
 Source0:	http://data.rodix.free.fr/warsow/files/%{name}_%{version}_sdk.zip
 # Source0-md5:	acd0244435cc63967b0eb3468c21c454
-Source1:	http://data.rodix.free.fr/warsow/files/%{name}_%{version}_unified.zip
-# Source1-md5:	d0cb961256bbc1b93bf240b8bcf8eff5
 Patch0:		%{name}-flags.patch
 Patch1:		%{name}-dirs.patch
+Patch2:		%{name}-gentoo_fixes.patch
+Patch3:		%{name}-libjpeg.patch
+Patch4:		%{name}-xincludes.patch
+Patch5:		%{name}-pic.patch
 URL:		http://www.warsow.net/
 %{?with_openal:BuildRequires:	OpenAL-devel}
 %{?with_qf:BuildRequires:	SDL-devel}
@@ -33,6 +35,7 @@ BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXxf86dga-devel
 BuildRequires:	xorg-lib-libXxf86vm-devel
 BuildRequires:	zlib-devel
+Requires:	%{name}-data = %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -61,13 +64,15 @@ Speedball.
 
 %prep
 %setup -q -c
-# conflicting license file
-%{__unzip} -qq -n %{SOURCE1}
-%patch0 -p1
-%patch1 -p1
+#%%patch0 -p1
+#%%patch1 -p1
+%patch2 -p0
+%patch3 -p1
+%patch4 -p1
+%patch5 -p0
 
 %build
-%{__make} -C source/ \
+%{__make} -C source/ -j1 
 	CC="%{__cc}" \
 	CXX="%{__cc}" \
 	LD="%{__cc}" \
@@ -85,7 +90,6 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_datadir}/%{name}}
 
 install source/release/warsow* $RPM_BUILD_ROOT%{_bindir}
 cp -r source/release/libs $RPM_BUILD_ROOT%{_datadir}/%{name}
-cp -r basewsw $RPM_BUILD_ROOT%{_datadir}/%{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -94,4 +98,4 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc docs/*
 %attr(755,root,root) %{_bindir}/warsow*
-%{_datadir}/%{name}
+%attr(755,root,root) %{_datadir}/%{name}/libs

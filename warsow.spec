@@ -24,10 +24,13 @@ Patch4:		%{name}-xincludes.patch
 Patch5:		%{name}-pic.patch
 URL:		http://www.warsow.net/
 %{?with_openal:BuildRequires:	OpenAL-devel}
+BuildRequires:	OpenGL-devel
 %{?with_qf:BuildRequires:	SDL-devel}
 BuildRequires:	curl-devel
 BuildRequires:	libjpeg-devel
+BuildRequires:	libstdc++-devel
 %{?with_qf:BuildRequires:	libvorbis-devel}
+BuildRequires:	pkgconfig
 BuildRequires:	unzip
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel
@@ -72,7 +75,7 @@ Speedball.
 %patch5 -p0
 
 %build
-%{__make} -C source/ -j1 
+%{__make} -C source/ -j1 \
 	CC="%{__cc}" \
 	CXX="%{__cc}" \
 	LD="%{__cc}" \

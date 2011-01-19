@@ -16,6 +16,8 @@ License:	GPL v2+
 Group:		X11/Applications/Games
 Source0:	http://www.zcdn.org/dl/%{name}_%{version}_sdk.zip
 # Source0-md5:	61059767d1775a7143931874607e95c0
+Source1:	%{name}.desktop
+Source2:	%{name}.png
 Patch0:		%{name}-gentoo_fixes.patch
 Patch1:		%{name}-libjpeg.patch
 Patch2:		%{name}-pic.patch
@@ -24,6 +26,7 @@ URL:		http://www.warsow.net/
 BuildRequires:	OpenGL-devel
 %{?with_qf:BuildRequires:	SDL-devel}
 BuildRequires:	curl-devel
+BuildRequires:	desktop-file-utils
 BuildRequires:	libjpeg-devel
 BuildRequires:	libstdc++-devel
 %{?with_qf:BuildRequires:	libvorbis-devel}
@@ -83,10 +86,14 @@ Speedball.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_datadir}/%{name}}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_datadir}/%{name},%{_desktopdir},%{_pixmapsdir}}
 
 cp -a source/release/warsow* $RPM_BUILD_ROOT%{_bindir}
 cp -a source/release/libs $RPM_BUILD_ROOT%{_datadir}/%{name}
+
+# desktop and icon
+desktop-file-install --dir=$RPM_BUILD_ROOT%{_desktopdir} %{SOURCE1}
+cp -a %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -96,3 +103,5 @@ rm -rf $RPM_BUILD_ROOT
 %doc docs/*
 %attr(755,root,root) %{_bindir}/warsow*
 %attr(755,root,root) %{_datadir}/%{name}/libs
+%{_desktopdir}/%{name}.desktop
+%{_pixmapsdir}/%{name}.png

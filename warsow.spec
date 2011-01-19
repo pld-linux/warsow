@@ -10,18 +10,15 @@
 Summary:	A Fast Paced FPS Game
 Summary(pl.UTF-8):	Szybko tocząca się gra FPS
 Name:		warsow
-Version:	0.5
-Release:	0.2
+Version:	0.6
+Release:	0.1
 License:	GPL v2+
 Group:		X11/Applications/Games
-Source0:	http://data.rodix.free.fr/warsow/files/%{name}_%{version}_sdk.zip
-# Source0-md5:	acd0244435cc63967b0eb3468c21c454
-Patch0:		%{name}-flags.patch
-Patch1:		%{name}-dirs.patch
-Patch2:		%{name}-gentoo_fixes.patch
-Patch3:		%{name}-libjpeg.patch
-Patch4:		%{name}-xincludes.patch
-Patch5:		%{name}-pic.patch
+Source0:	http://www.zcdn.org/dl/%{name}_%{version}_sdk.zip
+# Source0-md5:	61059767d1775a7143931874607e95c0
+Patch0:		%{name}-gentoo_fixes.patch
+Patch1:		%{name}-libjpeg.patch
+Patch2:		%{name}-pic.patch
 URL:		http://www.warsow.net/
 %{?with_openal:BuildRequires:	OpenAL-devel}
 BuildRequires:	OpenGL-devel
@@ -67,12 +64,9 @@ Speedball.
 
 %prep
 %setup -q -c
-#%%patch0 -p1
-#%%patch1 -p1
+%patch0 -p0
+%patch1 -p1
 %patch2 -p0
-%patch3 -p1
-%patch4 -p1
-%patch5 -p0
 
 %build
 %{__make} -C source/ -j1 \
@@ -91,8 +85,8 @@ Speedball.
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_datadir}/%{name}}
 
-install source/release/warsow* $RPM_BUILD_ROOT%{_bindir}
-cp -r source/release/libs $RPM_BUILD_ROOT%{_datadir}/%{name}
+cp -a source/release/warsow* $RPM_BUILD_ROOT%{_bindir}
+cp -a source/release/libs $RPM_BUILD_ROOT%{_datadir}/%{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT

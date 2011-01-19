@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Warsow
+Comment=A Fast Paced FPS Game
+Comment[pl]=Szybka gra typu FPS
+Icon=warsow
+Exec=warsow
+Terminal=false
+Type=Application
+Categories=Game;X-FPPGame;
+# vi: encoding=utf-8

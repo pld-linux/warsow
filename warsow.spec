@@ -10,12 +10,12 @@
 Summary:	A Fast Paced FPS Game
 Summary(pl.UTF-8):	Szybko tocząca się gra FPS
 Name:		warsow
-Version:	0.6
+Version:	0.61
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Games
 Source0:	http://www.zcdn.org/dl/%{name}_%{version}_sdk.zip
-# Source0-md5:	61059767d1775a7143931874607e95c0
+# Source0-md5:	04bd29a63c3a43a7e3ea3a865b75e580
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Patch0:		%{name}-gentoo_fixes.patch
